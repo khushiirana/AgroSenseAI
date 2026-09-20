@@ -1,0 +1,56 @@
+﻿# Environment & Secrets
+.env
+*.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Python Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Python Cache & Bytecode
+__pycache__/
+*/__pycache__/
+*/*/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Large Datasets (keep tabular CSVs, ignore 811MB 54,000-image dataset)
+dataset/plant_disease/
+
+# Build artifacts
+dist/
+frontend/dist/
+build/
+
+# IDE & OS files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Scratch & Temporary Files
+scratch/
