@@ -9,21 +9,21 @@
 ```mermaid
 graph TD
     subgraph Client Tier
-        UI[React + Vite Frontend (Port 3000)]
+        UI["React + Vite Frontend (Port 3000)"]
     end
 
     subgraph API Gateway Tier
-        EX[Node.js + Express Gateway (Port 5000)]
-        DB[(MongoDB Database / In-Memory Fallback)]
+        EX["Node.js + Express Gateway (Port 5000)"]
+        DB[("MongoDB Database / In-Memory Fallback")]
     end
 
     subgraph ML Microservice Tier
-        FA[Python + FastAPI Service (Port 8000)]
-        OW[OpenWeather API]
-        CR[Crop Random Forest + SHAP]
-        IR[Irrigation Random Forest Pipeline]
-        DE[Multi-Factor Decision Engine]
-        DD[PlantVillage CNN + Grad-CAM]
+        FA["Python + FastAPI Service (Port 8000)"]
+        OW["OpenWeather API"]
+        CR["Crop Random Forest + SHAP"]
+        IR["Irrigation Random Forest Pipeline"]
+        DE["Multi-Factor Decision Engine"]
+        DD["PlantVillage CNN + Grad-CAM"]
     end
 
     UI -->|HTTP / REST| EX
