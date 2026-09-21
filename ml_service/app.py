@@ -16,8 +16,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import Optional, Dict, Any, List
 
-# Load environment variables
-load_dotenv()
+# Load environment variables from ml_service/.env (explicit path so it works
+# regardless of which working directory uvicorn/python is launched from)
+_ENV_PATH = Path(__file__).resolve().parent / ".env"
+load_dotenv(dotenv_path=_ENV_PATH)
 
 from services.crop_service import crop_service
 from services.irrigation_service import irrigation_service
