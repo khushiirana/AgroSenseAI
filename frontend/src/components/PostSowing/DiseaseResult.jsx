@@ -56,29 +56,31 @@ export default function DiseaseResult({ result }) {
 
       {/* Top 3 Breakdown */}
       {result.top_3 && result.top_3.length > 0 && (
-        <div style={{ marginBottom: 14 }}>
+        <div style={{ marginBottom: 4 }}>
           <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#334155', marginBottom: 10 }}>
             Top Candidate Pathogens Evaluated:
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <div className="grid-3">
             {result.top_3.map((c, idx) => {
               const cleanName = c.disease.replace(/___/g, ' - ').replace(/_/g, ' ');
+              const isTop = idx === 0;
               return (
                 <div key={idx} style={{
-                  padding: '10px 14px',
+                  padding: '14px 16px',
                   backgroundColor: '#f8fafc',
                   borderRadius: 8,
                   border: '1px solid #e2e8f0',
                   display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between'
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  gap: 10
                 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <span style={{
-                      width: 22,
-                      height: 22,
+                      width: 24,
+                      height: 24,
                       borderRadius: '50%',
-                      backgroundColor: idx === 0 ? (isHealthy ? '#166534' : '#dc2626') : '#cbd5e1',
+                      backgroundColor: isTop ? (isHealthy ? '#166534' : '#dc2626') : '#94a3b8',
                       color: '#ffffff',
                       fontSize: '0.75rem',
                       fontWeight: 700,
@@ -88,13 +90,22 @@ export default function DiseaseResult({ result }) {
                     }}>
                       {idx + 1}
                     </span>
-                    <span style={{ fontSize: '0.9rem', fontWeight: 600, color: '#0f172a' }}>
-                      {cleanName}
-                    </span>
+                    <strong style={{ fontSize: '1rem', color: isTop ? (isHealthy ? '#166534' : '#b91c1c') : '#475569' }}>
+                      {c.confidence}%
+                    </strong>
                   </div>
-                  <strong style={{ fontSize: '0.9rem', color: idx === 0 ? '#0f172a' : '#64748b' }}>
-                    {c.confidence}%
-                  </strong>
+                  <div style={{ fontSize: '0.88rem', fontWeight: 600, color: '#0f172a', lineHeight: 1.3 }}>
+                    {cleanName}
+                  </div>
+                  <div className="progress-bar-bg">
+                    <div
+                      className="progress-bar-fill"
+                      style={{
+                        width: `${Math.min(100, Math.max(5, c.confidence))}%`,
+                        backgroundColor: isTop ? (isHealthy ? '#2d7a4f' : '#dc2626') : '#94a3b8'
+                      }}
+                    />
+                  </div>
                 </div>
               );
             })}

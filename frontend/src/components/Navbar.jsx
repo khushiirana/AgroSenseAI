@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Sprout, Activity, FileSpreadsheet, ShieldAlert, Cpu } from 'lucide-react';
+import { Sprout, Activity, ShieldAlert, FileSpreadsheet, Cpu } from 'lucide-react';
 import { checkSystemHealth } from '../services/api';
 
 export default function Navbar({ activeTab, setActiveTab }) {
@@ -22,11 +22,17 @@ export default function Navbar({ activeTab, setActiveTab }) {
     return () => clearInterval(interval);
   }, []);
 
+  const tabs = [
+    { id: 'pre-sowing', label: 'Pre-Sowing Decision', icon: Activity },
+    { id: 'post-sowing', label: 'Post-Sowing Disease', icon: ShieldAlert },
+    { id: 'history', label: 'History & Audits', icon: FileSpreadsheet },
+  ];
+
   return (
     <header style={{
       backgroundColor: '#ffffff',
-      borderBottom: '1px solid #e2e8f0',
-      boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.05)',
+      borderBottom: '1px solid #dde8d8',
+      boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
       position: 'sticky',
       top: 0,
       zIndex: 50
@@ -34,126 +40,91 @@ export default function Navbar({ activeTab, setActiveTab }) {
       <div style={{
         maxWidth: 1280,
         margin: '0 auto',
-        padding: '0 20px',
+        padding: '0 24px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        height: 72
+        height: 64
       }}>
         {/* Brand */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
           <div style={{
-            width: 42,
-            height: 42,
+            width: 38,
+            height: 38,
             borderRadius: 10,
-            backgroundColor: '#1e6b37',
+            background: 'linear-gradient(135deg, #2d7a4f 0%, #1a5c38 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#ffffff'
+            boxShadow: '0 2px 8px rgba(45,122,79,0.25)'
           }}>
-            <Sprout size={24} />
+            <Sprout size={20} color="#fff" />
           </div>
           <div>
-            <h1 style={{ fontSize: '1.25rem', fontWeight: 700, lineHeight: 1.2, color: '#0f172a' }}>
-              AgroSense <span style={{ color: '#1e6b37' }}>AI</span>
-            </h1>
-            <p style={{ fontSize: '0.78rem', color: '#64748b', fontWeight: 500 }}>
-              Explainable Agricultural Decision Support System
-            </p>
+            <div style={{ fontSize: '1.05rem', fontWeight: 700, color: '#1a2e1a', lineHeight: 1.2 }}>
+              AgroSense <span style={{ color: '#2d7a4f' }}>AI</span>
+            </div>
+            <div style={{ fontSize: '0.68rem', color: '#7a9e8a', fontWeight: 500, letterSpacing: '0.02em' }}>
+              Explainable Agricultural Decision Support
+            </div>
           </div>
         </div>
 
-        {/* Tab Navigation */}
-        <nav style={{ display: 'flex', gap: 8 }}>
-          <button
-            onClick={() => setActiveTab('pre-sowing')}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              padding: '10px 18px',
-              borderRadius: 8,
-              border: 'none',
-              fontSize: '0.88rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              transition: 'all 0.15s ease',
-              backgroundColor: activeTab === 'pre-sowing' ? '#e8f5e9' : 'transparent',
-              color: activeTab === 'pre-sowing' ? '#1e6b37' : '#475569'
-            }}
-          >
-            <Activity size={18} />
-            Pre-Sowing Decision
-          </button>
-
-          <button
-            onClick={() => setActiveTab('post-sowing')}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              padding: '10px 18px',
-              borderRadius: 8,
-              border: 'none',
-              fontSize: '0.88rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              transition: 'all 0.15s ease',
-              backgroundColor: activeTab === 'post-sowing' ? '#fef2f2' : 'transparent',
-              color: activeTab === 'post-sowing' ? '#dc2626' : '#475569'
-            }}
-          >
-            <ShieldAlert size={18} />
-            Post-Sowing Disease
-          </button>
-
-          <button
-            onClick={() => setActiveTab('history')}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              padding: '10px 18px',
-              borderRadius: 8,
-              border: 'none',
-              fontSize: '0.88rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              transition: 'all 0.15s ease',
-              backgroundColor: activeTab === 'history' ? '#f1f5f9' : 'transparent',
-              color: activeTab === 'history' ? '#0f172a' : '#475569'
-            }}
-          >
-            <FileSpreadsheet size={18} />
-            History & Audits
-          </button>
+        {/* Tabs */}
+        <nav style={{ display: 'flex', gap: 4 }}>
+          {tabs.map(({ id, label, icon: Icon }) => {
+            const isActive = activeTab === id;
+            return (
+              <button
+                key={id}
+                onClick={() => setActiveTab(id)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '7px 14px',
+                  borderRadius: 8,
+                  border: 'none',
+                  fontSize: '0.83rem',
+                  fontWeight: isActive ? 600 : 500,
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease',
+                  background: isActive ? '#e8f5e9' : 'transparent',
+                  color: isActive ? '#2d7a4f' : '#4b6358',
+                  boxShadow: isActive ? 'inset 0 0 0 1px #c8e6c9' : 'none'
+                }}
+              >
+                <Icon size={15} />
+                {label}
+              </button>
+            );
+          })}
         </nav>
 
-        {/* System Status Pill */}
+        {/* Status */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
-          gap: 12,
-          padding: '6px 14px',
-          backgroundColor: '#f8fafc',
+          gap: 10,
+          padding: '6px 12px',
+          background: '#f7f9f4',
           borderRadius: 20,
-          border: '1px solid #e2e8f0',
-          fontSize: '0.78rem'
+          border: '1px solid #dde8d8',
+          fontSize: '0.72rem',
+          fontWeight: 500,
+          flexShrink: 0
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
             <span style={{
-              width: 8,
-              height: 8,
-              borderRadius: '50%',
-              backgroundColor: health.backend === 'online' ? '#22c55e' : '#f59e0b'
-            }}></span>
-            <span style={{ color: '#475569', fontWeight: 500 }}>API Gateway</span>
+              width: 6, height: 6, borderRadius: '50%', display: 'block',
+              backgroundColor: health.backend === 'online' ? '#2d7a4f' : '#f59e0b'
+            }} />
+            <span style={{ color: '#4b6358' }}>API Gateway</span>
           </div>
-          <span style={{ color: '#cbd5e1' }}>|</span>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <Cpu size={13} color="#64748b" />
-            <span style={{ color: '#475569', fontWeight: 500 }}>ML Engine</span>
+          <span style={{ color: '#dde8d8' }}>|</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+            <Cpu size={11} color="#7a9e8a" />
+            <span style={{ color: '#4b6358' }}>ML Engine</span>
           </div>
         </div>
       </div>
