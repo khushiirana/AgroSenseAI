@@ -265,7 +265,10 @@ export default function App() {
 
                 {/* Grad-CAM Heatmap Visualization — full width */}
                 {diseaseResult.gradcam_image && (
-                  <GradCamViewer gradcamImage={diseaseResult.gradcam_image} />
+                  <GradCamViewer
+                    gradcamImage={diseaseResult.gradcam_image}
+                    originalPreview={selectedLeafFile ? URL.createObjectURL(selectedLeafFile) : null}
+                  />
                 )}
 
                 {/* Agronomic Health Guidance & Action Plan — full width */}
